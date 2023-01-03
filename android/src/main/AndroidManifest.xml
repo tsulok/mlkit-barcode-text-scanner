@@ -1,0 +1,9 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="hu.tsulok.mlkit.textscanner">
+
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <application>
+        <activity android:name="hu.tsulok.mlkit.textrecognizer.camera.CameraActivity" />
+    </application>
+</manifest>
