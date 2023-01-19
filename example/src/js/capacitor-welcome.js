@@ -4,6 +4,9 @@ import { MLKitTextRecognizer } from "mlkit-text-barcode-scanner";
 window.customElements.define(
   'capacitor-welcome',
   class extends HTMLElement {
+
+    savedCallbackId = undefined;
+
     constructor() {
       super();
 
@@ -97,9 +100,9 @@ window.customElements.define(
           console.log("Starting recognizer");
           MLKitTextRecognizer.startRecognizer({
             config: {
-              isLoggingEnabled: false,
-              barcodeScanner: { allow: false },
-              textRecognizer: { allow: true },
+              isLoggingEnabled: true,
+              barcodeScanner: { allow: true },
+              textRecognizer: { allow: false },
             },
           }, (callbackData) => {
             if (callbackData.text) {
@@ -109,10 +112,18 @@ window.customElements.define(
 
             if (callbackData.barcode) {
               console.log(`Recognized barcode: ${callbackData.barcode?.content}`)
+
+              if (callbackData.barcode?.content === "12345670") {
+                console.log("Invoking plugin kill from JS");
+                MLKitTextRecognizer.killPlugin(this.savedCallbackId).then(() => {
+                  console.log("Plugin is killed");
+                });
+              }
             }
           }).then(
             (callbackId) => {
               console.log(`Callback id received ${callbackId}`);
+              this.savedCallbackId = callbackId
             },
             (error) => {
               console.error("Something bad happened");

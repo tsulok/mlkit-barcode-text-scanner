@@ -1,5 +1,6 @@
 package hu.tsulok.mlkit.textrecognizer.camera
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
@@ -20,6 +21,7 @@ internal class CameraActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_CONFIG_KEY = "config"
+        const val KILL_KEY = "kill"
     }
 
     private val previewView: PreviewView by lazy { findViewById(R.id.cameraViewFinder) }
@@ -29,6 +31,15 @@ internal class CameraActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.camera_layout)
         startCamera(intent.getSerializableExtra(EXTRA_CONFIG_KEY) as? RecognizerConfig)
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+
+        if (intent?.getBooleanExtra(KILL_KEY, false) == true) {
+            PluginLogger.debug(TAG, "Kill is invoked, started to kill activity")
+            finish()
+        }
     }
 
     private fun startCamera(config: RecognizerConfig?) {

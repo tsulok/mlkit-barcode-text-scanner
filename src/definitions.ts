@@ -63,4 +63,6 @@ export interface MLKitTextRecognizerPlugin {
     config: RecognizerConfig,
     callback: FoundRecognizerCallback,
   ): Promise<CallbackID>;
+
+  killPlugin(callbackId: string): Promise<void>;
 }

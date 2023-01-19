@@ -8,6 +8,7 @@ import hu.tsulok.mlkit.textrecognizer.utils.PluginLogger
 
 interface MLKitTextRecognizer {
     fun startCamera(config: RecognizerConfig)
+    fun killCamera()
 }
 
 internal class MLKitTextRecognizerImpl(private val context: Context) : MLKitTextRecognizer {
@@ -20,6 +21,15 @@ internal class MLKitTextRecognizerImpl(private val context: Context) : MLKitText
             Intent(context, CameraActivity::class.java).putExtra(
                 CameraActivity.EXTRA_CONFIG_KEY,
                 config
+            )
+        )
+    }
+
+    override fun killCamera() {
+        context.startActivity(
+            Intent(context, CameraActivity::class.java).putExtra(
+                CameraActivity.KILL_KEY,
+                true
             )
         )
     }

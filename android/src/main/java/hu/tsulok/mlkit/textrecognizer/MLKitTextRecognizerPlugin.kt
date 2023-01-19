@@ -33,6 +33,21 @@ class MLKitTextRecognizerPlugin : Plugin(), IRecognizerEvent {
         checkPermissionsInternal(call)
     }
 
+    @PluginMethod(returnType = PluginMethod.RETURN_PROMISE)
+    fun killPlugin(killCall: PluginCall) {
+        Logger.debug("App", "Plugin kill call invoked")
+        if (this.call == null) {
+            Logger.error("App - Plugin call can't be killed, saved call is not found")
+            return
+        }
+
+        bridge.releaseCall(this.call)
+        this.call = null
+        Logger.debug("App", "Existing plugin released")
+        recognizer.killCamera()
+        killCall.resolve()
+    }
+
     override fun handleOnDestroy() {
         super.handleOnDestroy()
         ObjectRecognizerEventBus.removeListener(this)

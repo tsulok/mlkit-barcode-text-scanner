@@ -64,6 +64,7 @@ protected void onCreate(Bundle savedInstanceState) {
 <docgen-index>
 
 * [`startRecognizer(...)`](#startrecognizer)
+* [`killPlugin(...)`](#killplugin)
 * [Interfaces](#interfaces)
 * [Type Aliases](#type-aliases)
 
@@ -92,6 +93,19 @@ If permission is denied, then a custom exception will be thrown from the client
 | **`callback`** | <code><a href="#foundrecognizercallback">FoundRecognizerCallback</a></code> |
 
 **Returns:** <code>Promise&lt;string&gt;</code>
+
+--------------------
+
+
+### killPlugin(...)
+
+```typescript
+killPlugin(callbackId: string) => Promise<void>
+```
+
+| Param            | Type                |
+| ---------------- | ------------------- |
+| **`callbackId`** | <code>string</code> |
 
 --------------------
 
