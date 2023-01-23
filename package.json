@@ -1,6 +1,6 @@
 {
   "name": "mlkit-text-barcode-scanner",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Allow capacitor web apps to use MLKit's Text recognizer and it's BarCode scanner",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",

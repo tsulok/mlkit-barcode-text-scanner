@@ -31,4 +31,11 @@ class MLKitTextRecognizer: NSObject {
         self.cameraVC = cameraVC
       }
     }
+  
+  func removeCamera() {
+    DispatchQueue.main.async { [weak self] in
+      self?.cameraVC?.dismiss(animated: true)
+      self?.cameraVC = nil
+    }
+  }
 }

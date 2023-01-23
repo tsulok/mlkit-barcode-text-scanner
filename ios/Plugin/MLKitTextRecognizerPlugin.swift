@@ -14,12 +14,17 @@ public class MLKitTextRecognizerPlugin: CAPPlugin {
     implementation.startCamera(configuration: config, bridge: self.bridge, dataFoundDelegate: self)
   }
   
-  public override func checkPermissions(_ call: CAPPluginCall) {
-    
-  }
-  
-  public override func requestPermissions(_ call: CAPPluginCall) {
-    
+  @objc func killPlugin(_ call: CAPPluginCall) {
+    Logger.debug("Plugin kill is being invoked")
+    guard let savedCall = self.savedCall else {
+      Logger.error("Saved call not found - can't kill plugin")
+      return
+    }
+    bridge?.releaseCall(savedCall)
+    self.savedCall = nil
+    Logger.debug("Plugin is being released")
+    implementation.removeCamera()
+    call.resolve()
   }
 }
 
